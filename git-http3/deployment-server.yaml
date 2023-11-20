@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  labels:
+    app: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: test_app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 7000
+          name: http3
+          protocol: UDP
+        - containerPort: 7000
+          name: http3-tcp
+          protocol: TCP
