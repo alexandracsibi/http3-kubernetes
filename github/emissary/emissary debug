@@ -1,0 +1,154 @@
+SIMAN A TELEPITES UTAN
+
+time="2023-11-26 00:38:26.5566" level=warning msg="Warning, unable to watch httproutes.v1alpha1.networking.x-k8s.io, unknown kind." func=github.com/emissary-ingress/emissary/v3/cmd/entrypoint.GetInterestingTypes file="/go/cmd/entrypoint/interesting_types.go:156" CMD=entrypoint PID=1 THREAD=/watcher
+time="2023-11-26 00:38:26.5569" level=warning msg="Warning, unable to watch gateways.v1alpha1.networking.x-k8s.io, unknown kind." func=github.com/emissary-ingress/emissary/v3/cmd/entrypoint.GetInterestingTypes file="/go/cmd/entrypoint/interesting_types.go:156" CMD=entrypoint PID=1 THREAD=/watcher
+time="2023-11-26 00:38:26.5570" level=warning msg="Warning, unable to watch gatewayclasses.v1alpha1.networking.x-k8s.io, unknown kind." func=github.com/emissary-ingress/emissary/v3/cmd/entrypoint.GetInterestingTypes file="/go/cmd/entrypoint/interesting_types.go:156" CMD=entrypoint PID=1 THREAD=/watcher
+I1126 00:38:28.031542       1 request.go:697] Waited for 1.065177446s due to client-side throttling, not priority and fairness, request: GET:https://10.96.0.1:443/apis/getambassador.io/v3alpha1/tcpmappings?limit=500&resourceVersion=0
+time="2023-11-26 00:38:28.6737" level=error msg="Post \"http://localhost:8004/_internal/v0/watt?url=http%3A%2F%2Flocalhost%3A9696%2Fsnapshot\": dial tcp 127.0.0.1:8004: connect: connection refused" func=github.com/emissary-ingress/emissary/v3/cmd/entrypoint.notifyWebhookUrl file="/go/cmd/entrypoint/notify.go:124" CMD=entrypoint PID=1 THREAD=/watcher/notifyCh
+2023-11-26 00:38:29 diagd 3.9.1 [P20TAEW] ERROR: Secret fallback-self-signed-cert.emissary unknown
+2023-11-26 00:38:29 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 00:38:29 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 00:38:29 diagd 3.9.1 [P20TAEW] WARNING: No active listeners at all; check your Listener and Host configuration
+ 
+DEPLOYED HTTP3 DEPLOYEMENT + SERVICE EMISSARY NS-be
+
+2023-11-26 00:42:51 diagd 3.9.1 [P20TAEW] ERROR: Secret fallback-self-signed-cert.emissary unknown
+2023-11-26 00:42:51 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 00:42:51 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 00:42:51 diagd 3.9.1 [P20TAEW] WARNING: No active listeners at all; check your Listener and Host configuration
+
+EZ AMIKOR A HTTP3 SERVER SERVICE NEM EXPOSE OL UDP-N IS
+
+time="2023-11-25 04:34:02.9734" level=warning msg="ADS mode: not responding to request type.googleapis.com/envoy.config.route.v3.RouteConfiguration[local_route]: \"emissary-ingress-https-listener-udp-routeconfig-8359999d573987943c2adf475e1878ff-0\" not listed" func=github.com/emissary-ingress/emissary/v3/pkg/ambex.logAdapterBase.Warnf file="/go/pkg/ambex/main.go:569" CMD=entrypoint PID=1 oops-i-did-not-pass-context-correctly="THIS IS A BUG"
+ACCESS [2023-11-25T04:43:03.441Z] "GET /get HTTP/3" 504 UT 0 24 3003 - "10.244.0.1" "quic-go HTTP/3" "76f0ef16-3d15-49d2-81ae-93738a571324" "192.168.49.2:31165" "-"
+504 Gateway Timeout
+
+EMISSARY INGRESS SERVICE TORLESE ES APPLY HTTP3 KONFIGURALAS
+
+2023-11-26 00:45:48 diagd 3.9.1 [P20TAEW] ERROR: Secret fallback-self-signed-cert.emissary unknown
+2023-11-26 00:45:48 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 00:45:48 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 00:45:48 diagd 3.9.1 [P20TAEW] WARNING: No active listeners at all; check your Listener and Host configuration
+
+
+UDP + SIMA LISTENER APPLY
+
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: emissary-ingress-https-listener-udp.emissary.1: <RichStatus BAD error='No matching Hosts/TCPMappings found, disabling!' hostname='emissary-ingress-57bc7d8897-blzkj' version='3.9.1'>
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] WARNING: No active listeners at all; check your Listener and Host configuration
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L1 G2 C1)
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: error emissary-ingress-https-listener-udp.emissary.1 No matching Hosts/TCPMappings found, disabling!
+
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] ERROR: Secret fallback-self-signed-cert.emissary unknown
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: emissary-ingress-https-listener-udp.emissary.1: <RichStatus BAD error='No matching Hosts/TCPMappings found, disabling!' hostname='emissary-ingress-57bc7d8897-blzkj' version='3.9.1'>
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L2 G2 C1)
+2023-11-26 00:47:39 diagd 3.9.1 [P20TAEW] INFO: error emissary-ingress-https-listener-udp.emissary.1 No matching Hosts/TCPMappings found, disabling!
+time="2023-11-26 00:47:39.9327" level=warning msg="ADS mode: not responding to request type.googleapis.com/envoy.config.route.v3.RouteConfiguration[local_route]: \"emissary-ingress-https-listener-routeconfig-99914b932bd37a50b983c5e7c90ae93b-0\" not listed" func=github.com/emissary-ingress/emissary/v3/pkg/ambex.logAdapterBase.Warnf file="/go/pkg/ambex/main.go:569" CMD=entrypoint PID=1 oops-i-did-not-pass-context-correctly="THIS IS A BUG"
+
+HA NEM AKAROK TLS TERMINATION + ORIGINATIONT HA HOST NEM TARTALMAZ TLS SECRETET AKKOR NEM ISMERI FEL A HOSTOT EZ MIUTAN APPLY HOST - TLSSECRET (VISZONT NINCS "THIS IS A BUG")
+
+2023-11-26 01:47:49 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 01:47:49 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 01:47:49 diagd 3.9.1 [P20TAEW] INFO: emissary-ingress-https-listener-udp.emissary.1: <RichStatus BAD error='No matching Hosts/TCPMappings found, disabling!' hostname='emissary-ingress-57bc7d8897-blzkj' version='3.9.1'>
+2023-11-26 01:47:49 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 01:47:49 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 01:47:50 diagd 3.9.1 [P20TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L2 G2 C1)
+2023-11-26 01:47:50 diagd 3.9.1 [P20TAEW] INFO: error emissary-ingress-https-listener-udp.emissary.1 No matching Hosts/TCPMappings found, disabling!
+
+MAPPINGGEL SEM ISMERI FEL
+
+2023-11-26 01:48:56 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 01:48:56 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 01:48:56 diagd 3.9.1 [P20TAEW] INFO: emissary-ingress-https-listener-udp.emissary.1: <RichStatus BAD error='No matching Hosts/TCPMappings found, disabling!' hostname='emissary-ingress-57bc7d8897-blzkj' version='3.9.1'>
+2023-11-26 01:48:56 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 01:48:56 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 01:48:57 diagd 3.9.1 [P20TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L2 G3 C2)
+2023-11-26 01:48:57 diagd 3.9.1 [P20TAEW] INFO: error emissary-ingress-https-listener-udp.emissary.1 No matching Hosts/TCPMappings found, disabling!
+
+NEM IS ERI EL AZ A CLIENT A SERVICE-T
+
+./client https://192.168.49.2:31201/get
+2023/11/26 02:50:09 Error making request to https://192.168.49.2:31201/get: Get "https://192.168.49.2:31201/get": timeout: no recent network activity
+
+HOST KELL KAPJON TLS SECRETET TEHAT TLS TERMINATION-T FOG VEGEZNI AMI NEM JO MERT A SERVER KENE CSINALJA TEHAT CSAK TLS ORIGINATION LEHET ENVOY-BAN UGY HOGY NEM TUD SEMMI CERTIFICATET (NEM ISMERI FEL A HOSTOT)
+
+2023-11-26 03:11:20 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 03:11:20 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 03:11:20 diagd 3.9.1 [P20TAEW] INFO: emissary-ingress-https-listener-udp.emissary.1: <RichStatus BAD error='No matching Hosts/TCPMappings found, disabling!' hostname='emissary-ingress-57bc7d8897-blzkj' version='3.9.1'>
+2023-11-26 03:11:20 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 03:11:20 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 03:11:20 diagd 3.9.1 [P20TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L2 G3 C2)
+2023-11-26 03:11:20 diagd 3.9.1 [P20TAEW] INFO: error emissary-ingress-https-listener-udp.emissary.1 No matching Hosts/TCPMappings found, disabling!
+
+./client https://192.168.49.2:31201/get
+2023/11/26 04:12:50 Error making request to https://192.168.49.2:31201/get: Get "https://192.168.49.2:31201/get": timeout: no recent network activity
+
+HOST TLS SECRETTEL FELISMERI. A ROUTING VALAMI NEM JO (MOST A MAPPINGBEN ORIGINATION VAN CERTIFICATE NELKUL)
+
+2023-11-26 03:13:48 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 03:13:48 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 03:13:48 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 03:13:48 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 03:13:48 diagd 3.9.1 [P20TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L2 G3 C2)
+time="2023-11-26 03:13:48.9045" level=warning msg="ADS mode: not responding to request type.googleapis.com/envoy.config.route.v3.RouteConfiguration[emissary-ingress-https-listener-routeconfig-99914b932bd37a50b983c5e7c90ae93b-0 local_route]: \"emissary-ingress-https-listener-udp-routeconfig-8359999d573987943c2adf475e1878ff-0\" not listed" func=github.com/emissary-ingress/emissary/v3/pkg/ambex.logAdapterBase.Warnf file="/go/pkg/ambex/main.go:569" CMD=entrypoint PID=1 oops-i-did-not-pass-context-correctly="THIS IS A BUG"
+
+./client https://192.168.49.2:31201/get
+2023/11/26 04:15:08 Non-OK HTTP status: 503 - 503 Service Unavailable
+
+ORIGINATION NELKUL TLS SECRETTEL A HOSTBAN TEHAT TLS TERMINATIONNAL (NINCS HIBA ENVOY-JAL)
+
+2023-11-26 03:16:22 diagd 3.9.1 [P20TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 03:16:22 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 03:16:22 diagd 3.9.1 [P20TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 03:16:22 diagd 3.9.1 [P20TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 03:16:23 diagd 3.9.1 [P20TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L2 G3 C2)
+
+./client https://192.168.49.2:31201/get
+2023/11/26 04:17:05 Non-OK HTTP status: 503 - 503 Service Unavailable  (NEM MEGLEPO MIVEL A SERVER ENCRYPTED VARJA A FORMALMAT)
+
+AMI TALAN MEGOLDANA HOGY TLS TERMINATION ES ORIGINATION UGYANAZZOKKAL A CERTIFICATEKKEL HA LEHETSEGES MARMINT ENVOY ACTS AS TLS CLIENT IGY KENE KINEZZEN: 
+
+      transport_socket:
+        name: envoy.transport_sockets.quic
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.quic.v3.QuicUpstreamTransport
+          upstream_tls_context:
+            common_tls_context:
+              tls_params:
+                tls_minimum_protocol_version: TLSv1_3
+              validation_context:
+                trusted_ca:
+                  filename: /etc/envoy/ca.pem
+                  
+BELE KELL RAKNI A CA.PEM-T ENVOY TRUSTED CA-JAI KOZE NINCS RA OPTION HOST MAPPING TLSCONTEXT-TEL? HA MOUNT AZ EMISSARY DEPLOYMENTBE A CA.PEM-T TARTALMAZO SECRETET ES HOST TLS: CACERT_CHAIN_FILE: MEGADNI A CA.PEM-T AKKOR BEKERUL A DOWNSTREAM TRUSTED_CA-HOZ AMI NEM JO -> UGYANUGY SERVICE UNAVAIBLE.
+
+HA A MAPPINGHEZ ADOM HOZZA TLSCONTEXT LETREHOZASA UTAN
+
+2023-11-26 05:35:15 diagd 3.9.1 [P25TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 05:35:15 diagd 3.9.1 [P25TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 05:35:15 diagd 3.9.1 [P25TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 05:35:15 diagd 3.9.1 [P25TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+2023-11-26 05:35:15 diagd 3.9.1 [P25TAEW] INFO: configuration updated (incremental) from snapshot snapshot (S8 L2 G3 C2)
+2023-11-26 05:35:15 diagd 3.9.1 [P25TAEW] INFO: error ca-tlscontext.emissary.1 TLSContext ca-tlscontext cannot validate client certs without TLS termination
+2023-11-26 05:35:15 diagd 3.9.1 [P25TAEW] INFO: error cluster_https___http3_service_emissary_7000_otls_emissary Originate-TLS context ca-tlscontext is not defined
+
+HA A TLSCONTEXTBEN VAN SECRET (serverkey.pem, servercert.pem), CACERT_CHAIN_FILE (etc/custom-ca-cert/ca.pem) ES MEGJELENIK MIND A HOSTBAN MIND A MAPPINGBEN AKKOR NINCS WARNING/ERROR. (NEM SZERETI A CA_SECRETET AZ NEM ERRE VAN, ABBAN IS VARNA KEY+CERT PAROST)
+
+IGY MEGJELENT TRUSTED_CA a DOWNSTREAM ES AZ UPSTREAM-NEL VISZONT NINCS QUIC UPSTREAM HA IGY SEM MEGY AKKOR NEM KEPES KONFIGURALNI AZ ENVOYT QUICUPSTREAMRE
+NINCS ERROR ENVOY KONIG-GAL VISZONT UNAVAIBLE MARAD
+2023-11-26 05:55:25 diagd 3.9.1 [P25TAEW] INFO: EnvoyConfig: Generating V3
+2023-11-26 05:55:25 diagd 3.9.1 [P25TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener-udp on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 05:55:25 diagd 3.9.1 [P25TAEW] INFO: V3Listener <V3Listener HTTP emissary-ingress-https-listener on 0.0.0.0:8443 [XFP]>: generated ===========================
+2023-11-26 05:55:25 diagd 3.9.1 [P25TAEW] INFO: V3Ready: ==== listen on 127.0.0.1:8006
+ACCESS [2023-11-26T06:06:48.254Z] "GET /get HTTP/3" 503 UF 0 152 1 - "10.244.0.1" "quic-go HTTP/3" "5187dc1e-9fca-4262-8459-d271f3cf1268" "192.168.49.2:31201" "10.99.195.231:7000"
+
+SNI MEGADASAVAL SEM LETT JOBB UGY HOGY A CERTIFICATE-K ELFOGADNAK "*" DOMAINT
+HA MAPPING VAGY HOSTBAN NEM "*" VAN AKKOR 
+ACCESS [2023-11-27T03:30:14.062Z] "GET /get HTTP/3" 404 NR 0 0 0 - "10.244.0.1" "quic-go HTTP/3" "f9a159a3-7468-4141-ac63-7ec504edf033" "minikube:32482" "-"
+

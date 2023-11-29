@@ -1,0 +1,107 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: emissary-ingress-https-listener-udp
+  namespace: emissary
+spec:
+  port: 8443
+  protocolStack:
+    - TLS
+    - HTTP
+    - UDP
+  securityModel: XFP
+  hostBinding:
+    namespace:
+      from: ALL
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: emissary-ingress-https-listener
+  namespace: emissary
+spec:
+  port: 8443
+  protocol: HTTPS
+  securityModel: XFP
+  hostBinding:
+    namespace:
+      from: ALL
+---
+apiVersion: getambassador.io/v3alpha1
+kind: TLSContext
+metadata:
+  name: upstream-tlscontext
+  namespace: emissary
+spec:
+  secret: tls-secret
+  cacert_chain_file: /etc/custom-ca-cert/ca.pem 
+  min_tls_version: v1.3
+  sni: minikube
+---
+apiVersion: getambassador.io/v3alpha1
+kind: TLSContext
+metadata:
+  name: downstream-tlscontext
+  namespace: emissary
+spec:
+  secret: tls-secret
+  min_tls_version: v1.3
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Host
+metadata:
+  name: http3-host
+  namespace: emissary
+spec:
+  hostname: "*"
+  tlsSecret: 
+    name: tls-secret  
+  acmeProvider:
+    authority: none
+  tlsContext:
+    name: downstream-tlscontext
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: http3-backend
+  namespace: emissary
+spec:
+  hostname: "*"
+  prefix: /
+  service: https://http3-service.emissary:7000
+  tls: upstream-tlscontext
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: ambassador-service
+    app.kubernetes.io/instance: emissary-ingress
+    app.kubernetes.io/name: emissary-ingress
+    app.kubernetes.io/part-of: emissary-ingress
+  name: emissary-ingress
+  namespace: emissary
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 8443
+      protocol: TCP
+    - name: http3
+      port: 443
+      targetPort: 8443
+      protocol: UDP
+  selector:
+    app.kubernetes.io/instance: emissary-ingress
+    app.kubernetes.io/name: emissary-ingress
+  type: NodePort
+---
+#kubectl -n emissary create secret generic ca-cert --from-file=ca.pem
+#kubectl -n emissary create secret tls tls-secret   --cert=servercert.pem   --key=serverkey.pem
+

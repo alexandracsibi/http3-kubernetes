@@ -1,0 +1,93 @@
+[2023-11-27 00:04:18.373][1][debug][upstream] [source/extensions/clusters/logical_dns/logical_dns_cluster.cc:152] DNS refresh rate reset for http3-service.default, refresh rate 5000 ms
+[2023-11-27 00:04:20.494][18][info][quic] [external/com_github_google_quiche/quiche/quic/core/tls_server_handshaker.cc:908] No hostname indicated in SNI
+[2023-11-27 00:04:20.508][18][debug][http] [source/common/http/conn_manager_impl.cc:391] [Tags: "ConnectionId":"13557020190657708003"] new stream
+[2023-11-27 00:04:20.509][18][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:229] [Tags: "ConnectionId":"13557020190657708003","StreamId":"0"] Received headers: { :authority=192.168.49.2:30707, :method=GET, :path=/get, :scheme=https, accept-encoding=gzip, user-agent=quic-go HTTP/3, }.
+[2023-11-27 00:04:20.509][18][debug][http] [source/common/http/conn_manager_impl.cc:1194] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] request headers complete (end_stream=false):
+':authority', '192.168.49.2:30707'
+':method', 'GET'
+':path', '/get'
+':scheme', 'https'
+'accept-encoding', 'gzip'
+'user-agent', 'quic-go HTTP/3'
+
+[2023-11-27 00:04:20.509][18][debug][router] [source/common/router/router.cc:520] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] cluster 'http3-server' match for URL '/get'
+[2023-11-27 00:04:20.509][18][debug][router] [source/common/router/router.cc:732] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] router decoding headers:
+':authority', '192.168.49.2:30707'
+':method', 'GET'
+':path', '/get'
+':scheme', 'https'
+'accept-encoding', 'gzip'
+'user-agent', 'quic-go HTTP/3'
+'x-forwarded-for', '10.244.0.1'
+'x-forwarded-proto', 'https'
+'x-envoy-internal', 'true'
+'x-request-id', '6d72adcb-2a6d-492b-846b-475cac5fba59'
+'x-envoy-expected-rq-timeout-ms', '15000'
+
+[2023-11-27 00:04:20.509][18][debug][pool] [source/common/http/conn_pool_base.cc:78] queueing stream due to no available connections (ready=0 busy=0 connecting=0)
+[2023-11-27 00:04:20.509][18][debug][pool] [source/common/conn_pool/conn_pool_base.cc:291] trying to create new connection
+[2023-11-27 00:04:20.509][18][debug][pool] [source/common/conn_pool/conn_pool_base.cc:145] creating a new connection (connecting=0)
+[2023-11-27 00:04:20.509][18][debug][pool] [source/common/http/http3/conn_pool.cc:154] Creating Http/3 client
+[2023-11-27 00:04:20.510][18][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:316] [Tags: "ConnectionId":"13557020190657708003","StreamId":"0"] Received 0 bytes of data with FIN.
+[2023-11-27 00:04:20.510][18][debug][http] [source/common/http/conn_manager_impl.cc:1177] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] request end stream
+[2023-11-27 00:04:20.511][18][debug][client] [source/common/http/codec_client.cc:57] [Tags: "ConnectionId":"16676144770171857697"] connecting
+[2023-11-27 00:04:20.520][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 1252 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.521][18][info][quic] [external/com_github_google_quiche/quiche/quic/core/tls_client_handshaker.cc:519] Client: handshake finished
+[2023-11-27 00:04:20.521][18][debug][client] [source/common/http/codec_client.cc:88] [Tags: "ConnectionId":"16676144770171857697"] connected
+[2023-11-27 00:04:20.521][18][debug][pool] [source/common/conn_pool/conn_pool_base.cc:328] [Tags: "ConnectionId":"16676144770171857697"] attaching to next stream
+[2023-11-27 00:04:20.521][18][debug][pool] [source/common/conn_pool/conn_pool_base.cc:182] [Tags: "ConnectionId":"16676144770171857697"] creating stream
+[2023-11-27 00:04:20.521][18][debug][router] [source/common/router/upstream_request.cc:563] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] pool ready
+[2023-11-27 00:04:20.521][18][debug][quic_stream] [source/common/quic/envoy_quic_client_stream.cc:37] [Tags: "ConnectionId":"16676144770171857697","StreamId":"0"] encodeHeaders: (end_stream=false) ':authority', '192.168.49.2:30707'
+':method', 'GET'
+':path', '/get'
+':scheme', 'https'
+'accept-encoding', 'gzip'
+'user-agent', 'quic-go HTTP/3'
+'x-forwarded-for', '10.244.0.1'
+'x-forwarded-proto', 'https'
+'x-envoy-internal', 'true'
+'x-request-id', '6d72adcb-2a6d-492b-846b-475cac5fba59'
+'x-envoy-expected-rq-timeout-ms', '15000'
+.
+[2023-11-27 00:04:20.522][18][debug][quic_stream] [source/common/quic/envoy_quic_client_stream.cc:120] [Tags: "ConnectionId":"16676144770171857697","StreamId":"0"] encodeData (end_stream=true) of 0 bytes.
+[2023-11-27 00:04:20.522][18][debug][client] [source/common/http/codec_client.cc:141] [Tags: "ConnectionId":"16676144770171857697"] encode complete
+[2023-11-27 00:04:20.522][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 24 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.524][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 241 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.525][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 430 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.525][18][debug][quic_stream] [source/common/quic/envoy_quic_client_stream.cc:240] [Tags: "ConnectionId":"16676144770171857697","StreamId":"0"] Received headers: { :status=200, content-length=371, content-type=application/json, date=Mon, 27 Nov 2023 00:04:20 GMT, }.
+[2023-11-27 00:04:20.525][18][debug][router] [source/common/router/router.cc:1479] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] upstream headers complete: end_stream=false
+[2023-11-27 00:04:20.526][18][debug][http] [source/common/http/conn_manager_impl.cc:1863] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] encoding headers via codec (end_stream=false):
+':status', '200'
+'content-length', '371'
+'content-type', 'application/json'
+'date', 'Mon, 27 Nov 2023 00:04:20 GMT'
+'x-envoy-upstream-service-time', '15'
+'server', 'envoy'
+
+[2023-11-27 00:04:20.526][18][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:52] [Tags: "ConnectionId":"13557020190657708003","StreamId":"0"] encodeHeaders (end_stream=false) ':status', '200'
+'content-length', '371'
+'content-type', 'application/json'
+'date', 'Mon, 27 Nov 2023 00:04:20 GMT'
+'x-envoy-upstream-service-time', '15'
+'server', 'envoy'
+.
+[2023-11-27 00:04:20.526][18][debug][client] [source/common/http/codec_client.cc:128] [Tags: "ConnectionId":"16676144770171857697"] response complete
+[2023-11-27 00:04:20.526][18][debug][pool] [source/common/conn_pool/conn_pool_base.cc:215] [Tags: "ConnectionId":"16676144770171857697"] destroying stream: 0 remaining
+[2023-11-27 00:04:20.526][18][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:94] [Tags: "ConnectionId":"13557020190657708003","StreamId":"0"] encodeData (end_stream=true) of 371 bytes.
+[2023-11-27 00:04:20.527][18][debug][http] [source/common/http/conn_manager_impl.cc:1968] [Tags: "ConnectionId":"13557020190657708003","StreamId":"4510109443699593102"] Codec completed encoding stream.
+[2023-11-27 00:04:20.546][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 22 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.575][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 1352 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.603][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 1402 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.630][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 1427 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:20.659][18][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 1439 bytes from 10.105.243.184:7000
+[2023-11-27 00:04:23.273][1][debug][main] [source/server/server.cc:263] flushing stats
+[2023-11-27 00:04:23.371][1][debug][upstream] [source/extensions/clusters/logical_dns/logical_dns_cluster.cc:93] starting async DNS resolution for http3-service.default
+[2023-11-27 00:04:23.371][1][debug][dns] [source/extensions/network/dns_resolver/cares/dns_impl.cc:365] dns resolution for http3-service.default started
+[2023-11-27 00:04:23.373][1][debug][dns] [source/extensions/network/dns_resolver/cares/dns_impl.cc:285] dns resolution for http3-service.default completed with status 0
+
+
+[2023-11-27 00:04:49.661][18][debug][client] [source/common/http/codec_client.cc:107] [Tags: "ConnectionId":"16676144770171857697"] disconnect. resetting 0 pending requests
+[2023-11-27 00:04:49.661][18][debug][pool] [source/common/conn_pool/conn_pool_base.cc:484] [Tags: "ConnectionId":"16676144770171857697"] client disconnected, failure reason: QUIC_NETWORK_IDLE_TIMEOUT with details: No recent network activity after 28977665us. Timeout:29s
+[2023-11-27 00:04:49.661][18][debug][pool] [source/common/conn_pool/conn_pool_base.cc:454] invoking idle callbacks - is_draining_for_deletion_=false
+[2023-11-27 00:04:53.278][1][debug][main] [source/server/server.cc:263] flushing stats
+

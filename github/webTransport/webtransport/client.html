@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebTransport Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #cebfaa
+        }
+        #output {
+            border: 1px solid #030000;
+            padding: 10px;
+            margin-top: 20px;
+            height: 400px;
+            width: 700px;
+            overflow-y: auto;
+            background: #c5c5c5;
+        }
+        button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebTransport Client</h1>
+    <button id="connectButton">Connect</button>
+    <div id="output"></div>
+    <script>
+        Promise.delay = time_ms => new Promise(resolve => setTimeout(resolve, time_ms));
+
+        async function main() {
+            document.getElementById('connectButton').disabled = true;
+            const streamReader = async (stream, errorText, dataReceivedFunction) => {
+                try {
+                    let reader = stream.getReader();
+                    while (true) {
+                        data = await reader.read();
+                        if (data.done) {
+                            break;
+                        }
+                        dataReceivedFunction(data.value);
+                    }
+                } catch(error) {
+                    addToOutput(errorText + ': ' + error);
+                }
+            };
+
+            // Text encoder and decoder
+            let encoder = new TextEncoder();
+            let decoder = new TextDecoder();
+
+            // Connect to WebTransport server
+            let transport = new WebTransport("https://192.168.49.2:31559/webtransport");
+            //let transport = new WebTransport("https://localhost:7005/webtransport");
+            await transport.ready;
+
+            transport.closed
+                .then(() => addToOutput('Connection closed normally'))
+                .catch(error => addToOutput('Connection closed abruptly: ' + error));
+
+            // Create client-initiated bidi stream & writer
+            let stream = await transport.createBidirectionalStream();
+            let writer = stream.writable.getWriter();
+
+            // Create client-initiated uni stream & writer
+            let uniStream = await transport.createUnidirectionalStream();
+            let uniWriter = uniStream.getWriter();
+
+            // Create datagram writer
+            let datagramWriter = transport.datagrams.writable.getWriter();
+
+            // Display incoming datagrams, data on bidi stream, and incoming bidi & uni streams (and data on those streams)
+            streamReader(transport.datagrams.readable, 'Datagram receive error', data => {
+                addToOutput('Received datagram: ' + decoder.decode(data));
+            });
+            streamReader(stream.readable, 'Bidirectional stream receive error', data => {
+                addToOutput('Received on bidirectional stream: ' + decoder.decode(data));
+            });
+            streamReader(transport.incomingBidirectionalStreams, 'Incoming bidirectional stream error', stream => {
+                addToOutput('Received an incoming bidirectional stream');
+                let incomingBidiWriter = stream.writable.getWriter();
+                streamReader(stream.readable, 'Incoming bidirectional stream receive error', async data => {
+                    let text = decoder.decode(data);
+                    addToOutput('Received on incoming bidirectional stream: ' + text);
+                    await incomingBidiWriter.write(encoder.encode(text.toUpperCase()));
+                });
+            });
+            streamReader(transport.incomingUnidirectionalStreams, 'Incoming unidirectional stream error', stream => {
+                addToOutput('Received an incoming unidirectional stream');
+                streamReader(stream, 'Incoming unidirectional stream receive error', data => {
+                    addToOutput('Received on incoming unidirectional stream: ' + decoder.decode(data));
+                })
+            });
+
+            // Send some data on the streams we've created, wait, then send some more
+            await datagramWriter.write(encoder.encode("Datagram"))
+            await uniWriter.write(encoder.encode("Unidirectional stream"))
+            await writer.write(encoder.encode("Bidirectional stream"))
+
+            await Promise.delay(1000);
+
+            await datagramWriter.write(encoder.encode("Datagram again"))
+            await uniWriter.write(encoder.encode("Unidirectional stream again"))
+            await writer.write(encoder.encode("Bidirectional stream again"))
+
+            await Promise.delay(2000);
+            await writer.close();
+
+            await Promise.delay(2000);
+            await transport.close();
+            document.getElementById('connectButton').disabled = false;
+        }
+
+        //Utility function to add text to the output area
+        function addToOutput(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += message + '<br>';
+            output.scrollTop = output.scrollHeight;
+        } 
+        document.getElementById('connectButton').addEventListener('click', main);
+    </script>
+</body>
+</html>

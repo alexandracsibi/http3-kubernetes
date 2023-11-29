@@ -1,0 +1,116 @@
+admin:
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 9901
+
+static_resources:
+  listeners:
+    - name: listener_udp
+      address:
+        socket_address:
+          protocol: UDP
+          address: 0.0.0.0
+          port_value: 7001
+      udp_listener_config:
+        quic_options: {}
+        downstream_socket_config:
+          prefer_gro: true
+      filter_chains:
+        - filter_chain_match:
+            transport_protocol: quic
+          filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                codec_type: HTTP3
+                stat_prefix: ingress_https
+                use_remote_address: true
+                http3_protocol_options: {}
+                normalize_path: true
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: local_service
+                      domains: ["*"]
+                      routes:
+                        - match:
+                            headers:
+                              - exact_match: https
+                                name: x-forwarded-proto  
+                            prefix: "/"
+                          route:
+                            cluster: http3-server
+                http_filters:
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+                access_log:
+                  - name: envoy.access_loggers.file
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+                      path: /var/log/envoy/access.log
+                      log_format:
+                        text_format: |
+                          "Time: [%START_TIME%], "
+                          "Method: \"%REQ(:METHOD)%\", "
+                          "Path: \"%REQ(X-ENVOY-ORIGINAL-PATH?:PATH)%\", "
+                          "Protocol: %PROTOCOL%, "
+                          "Status: %RESPONSE_CODE%, "
+                          "Flags: %RESPONSE_FLAGS%, "
+                          "Bytes Received: %BYTES_RECEIVED%, "
+                          "Bytes Sent: %BYTES_SENT%, "
+                          "Duration: %DURATION% ms, "
+                          "Upstream Service Time: %RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)% ms, "
+                          "Forwarded For: \"%REQ(X-FORWARDED-FOR)%\", "
+                          "User Agent: \"%REQ(USER-AGENT)%\", "
+                          "Request ID: \"%REQ(X-REQUEST-ID)%\", "
+                          "Authority: \"%REQ(:AUTHORITY)%\", "
+                          "Upstream Host: \"%UPSTREAM_HOST%\""
+          transport_socket:           
+            name: envoy.transport_sockets.quic
+            typed_config:
+              '@type': type.googleapis.com/envoy.extensions.transport_sockets.quic.v3.QuicDownstreamTransport
+              downstream_tls_context:
+                common_tls_context:
+                  tls_params:
+                    tls_minimum_protocol_version: TLSv1_3
+                  tls_certificates:
+                    - certificate_chain:
+                        filename: /etc/envoy/servercert.pem
+                      private_key:
+                        filename: /etc/envoy/serverkey.pem
+
+  clusters:
+    - name: http3-server
+      type: LOGICAL_DNS
+      connect_timeout: 3.000s
+      typed_extension_protocol_options:
+        envoy.extensions.upstreams.http.v3.HttpProtocolOptions:
+          "@type": type.googleapis.com/envoy.extensions.upstreams.http.v3.HttpProtocolOptions
+          explicit_http_config:
+            http3_protocol_options: {}
+      dns_lookup_family: V4_ONLY
+      load_assignment:
+        cluster_name: http3-server
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: http3-service.default
+                      port_value: 7000
+      transport_socket:
+        name: envoy.transport_sockets.quic
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.quic.v3.QuicUpstreamTransport
+          upstream_tls_context:
+            common_tls_context:
+              tls_params:
+                tls_minimum_protocol_version: TLSv1_3
+              validation_context:
+                trusted_ca:
+                  filename: /etc/envoy/ca.pem
+            sni: minikube
+
+

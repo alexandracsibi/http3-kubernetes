@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: envoy-deployment
+  labels:
+    app: envoy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: envoy
+  template:
+    metadata:
+      labels:
+        app: envoy
+    spec:
+      containers:
+      - name: envoy
+        image: envoy:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 7001
+          name: http3
+          protocol: UDP
+        - containerPort: 7001
+          name: http3-tcp
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: envoy-service
+spec:
+  selector:
+    app: envoy
+  ports:
+    - name: http
+      protocol: TCP
+      port: 7001
+      targetPort: 7001
+    - name: http3
+      protocol: UDP
+      port: 7001
+      targetPort: 7001
+  type: NodePort

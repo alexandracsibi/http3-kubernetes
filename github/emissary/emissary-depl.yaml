@@ -1,0 +1,179 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: emissary-ingress
+    app.kubernetes.io/managed-by: getambassador.io
+    app.kubernetes.io/name: emissary-ingress
+    app.kubernetes.io/part-of: emissary-ingress
+    product: aes
+  name: emissary-ingress
+  namespace: emissary
+  resourceVersion: "120625"
+  uid: d0bc3af7-164c-4399-b0bf-200e872fa403
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: emissary-ingress
+      app.kubernetes.io/name: emissary-ingress
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        consul.hashicorp.com/connect-inject: "false"
+        sidecar.istio.io/inject: "false"
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: emissary-ingress
+        app.kubernetes.io/managed-by: getambassador.io
+        app.kubernetes.io/name: emissary-ingress
+        app.kubernetes.io/part-of: emissary-ingress
+        product: aes
+        profile: main
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  service: ambassador
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: AMBASSADOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: AGENT_CONFIG_RESOURCE_NAME
+          value: emissary-ingress-agent-cloud-token
+        image: docker.io/emissaryingress/emissary:3.9.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ambassador/v0/check_alive
+            port: admin
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: ambassador
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        - containerPort: 8443
+          name: http3
+          protocol: UDP
+        - containerPort: 8877
+          name: admin
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ambassador/v0/check_ready
+            port: admin
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: "1"
+            memory: 400Mi
+          requests:
+            cpu: 200m
+            memory: 100Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp/ambassador-pod-info
+          name: ambassador-pod-info
+          readOnly: true
+        - mountPath: /etc/custom-ca-cert
+          name: custom-ca-cert
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - args:
+        - |
+          deployment_name="emissary-apiext"
+          deployment_namespace="emissary-system"
+          while true; do
+            echo "checking if deployment/$deployment_name in namespace: $deployment_namespace exists."
+            if kubectl get deployment "$deployment_name" -n $deployment_namespace > /dev/null 2>&1; then
+              echo "$deployment_name.$deployment_namespace exists."
+              echo "checking if $deployment_name.$deployment_namespace is fully available..."
+              kubectl wait --for=condition=available deployment/"$deployment_name" -n $deployment_namespace --timeout=5m
+              if [ $? -eq 0 ]; then
+                echo "$deployment_name.$deployment_namespace is available"
+                while true; do
+                desired_replicas=$(kubectl get deployment $deployment_name -n $deployment_namespace -o jsonpath='{.spec.replicas}')
+                current_replicas=$(kubectl get deployment $deployment_name -n $deployment_namespace -o jsonpath='{.status.replicas}')
+                if [[ $current_replicas != $desired_replicas ]]; then
+                  echo "$deployment_name.$deployment_namespace is in the process of restarting. Have: $current_replicas, want $desired_replicas"
+                  sleep 3
+                else
+                  echo "$deployment_name.$deployment_namespace is fully ready and not currently restarting.  Have: $current_replicas, want $desired_replicas"
+                  break
+                fi
+                done
+                break
+              else
+                echo "$deployment_name.$deployment_namespace did not become available within the timeout"
+              fi
+            else
+              echo "$deployment_name.$deployment_namespace does not exist yet. Waiting..."
+              sleep 3
+            fi
+          done
+        command:
+        - /bin/sh
+        - -c
+        image: istio/kubectl:1.5.10
+        imagePullPolicy: IfNotPresent
+        name: wait-for-apiext
+        resources: {}
+        securityContext:
+          runAsUser: 8888
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        runAsUser: 8888
+      serviceAccount: emissary-ingress
+      serviceAccountName: emissary-ingress
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - downwardAPI:
+          defaultMode: 420
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels
+            path: labels
+        name: ambassador-pod-info
+      - name: custom-ca-cert
+        secret:
+          secretName: ca-cert

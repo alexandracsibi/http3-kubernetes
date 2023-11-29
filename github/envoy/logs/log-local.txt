@@ -1,0 +1,79 @@
+[2023-11-24 05:02:48.877][152835][info][main] [source/server/server.cc:942] starting main dispatch loop
+[2023-11-24 05:02:53.871][152835][debug][main] [source/server/server.cc:263] flushing stats
+[2023-11-24 05:02:58.873][152835][debug][main] [source/server/server.cc:263] flushing stats
+[2023-11-24 05:03:01.124][152846][debug][http] [source/common/http/conn_manager_impl.cc:391] [Tags: "ConnectionId":"663285105048046978"] new stream
+[2023-11-24 05:03:01.124][152846][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:229] [Tags: "ConnectionId":"663285105048046978","StreamId":"0"] Received headers: { :authority=localhost:7001, :method=GET, :path=/get, :scheme=https, accept-encoding=gzip, user-agent=quic-go HTTP/3, }.
+[2023-11-24 05:03:01.125][152846][debug][http] [source/common/http/conn_manager_impl.cc:1194] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] request headers complete (end_stream=false):
+':authority', 'localhost:7001'
+':method', 'GET'
+':path', '/get'
+':scheme', 'https'
+'accept-encoding', 'gzip'
+'user-agent', 'quic-go HTTP/3'
+
+[2023-11-24 05:03:01.125][152846][debug][router] [source/common/router/router.cc:520] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] cluster 'http3-server' match for URL '/get'
+[2023-11-24 05:03:01.125][152846][debug][router] [source/common/router/router.cc:732] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] router decoding headers:
+':authority', 'localhost:7001'
+':method', 'GET'
+':path', '/get'
+':scheme', 'https'
+'accept-encoding', 'gzip'
+'user-agent', 'quic-go HTTP/3'
+'x-forwarded-proto', 'https'
+'x-request-id', '38dec232-8ee6-4e9d-b70c-5bda430e1f3c'
+'x-envoy-expected-rq-timeout-ms', '15000'
+
+[2023-11-24 05:03:01.125][152846][debug][pool] [source/common/http/conn_pool_base.cc:78] queueing stream due to no available connections (ready=0 busy=0 connecting=0)
+[2023-11-24 05:03:01.125][152846][debug][pool] [source/common/conn_pool/conn_pool_base.cc:291] trying to create new connection
+[2023-11-24 05:03:01.125][152846][debug][pool] [source/common/conn_pool/conn_pool_base.cc:145] creating a new connection (connecting=0)
+[2023-11-24 05:03:01.125][152846][debug][pool] [source/common/http/http3/conn_pool.cc:154] Creating Http/3 client
+[2023-11-24 05:03:01.126][152846][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:316] [Tags: "ConnectionId":"663285105048046978","StreamId":"0"] Received 0 bytes of data with FIN.
+[2023-11-24 05:03:01.126][152846][debug][http] [source/common/http/conn_manager_impl.cc:1177] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] request end stream
+[2023-11-24 05:03:01.127][152846][debug][client] [source/common/http/codec_client.cc:57] [Tags: "ConnectionId":"4417269691172050626"] connecting
+[2023-11-24 05:03:01.138][152846][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 1252 bytes from 127.0.0.1:7000
+[2023-11-24 05:03:01.139][152846][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 290 bytes from 127.0.0.1:7000
+[2023-11-24 05:03:01.139][152846][info][quic] [external/com_github_google_quiche/quiche/quic/core/tls_client_handshaker.cc:519] Client: handshake finished
+[2023-11-24 05:03:01.139][152846][debug][client] [source/common/http/codec_client.cc:88] [Tags: "ConnectionId":"4417269691172050626"] connected
+[2023-11-24 05:03:01.139][152846][debug][pool] [source/common/conn_pool/conn_pool_base.cc:328] [Tags: "ConnectionId":"4417269691172050626"] attaching to next stream
+[2023-11-24 05:03:01.139][152846][debug][pool] [source/common/conn_pool/conn_pool_base.cc:182] [Tags: "ConnectionId":"4417269691172050626"] creating stream
+[2023-11-24 05:03:01.139][152846][debug][router] [source/common/router/upstream_request.cc:563] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] pool ready
+[2023-11-24 05:03:01.140][152846][debug][quic_stream] [source/common/quic/envoy_quic_client_stream.cc:37] [Tags: "ConnectionId":"4417269691172050626","StreamId":"0"] encodeHeaders: (end_stream=false) ':authority', 'localhost:7001'
+':method', 'GET'
+':path', '/get'
+':scheme', 'https'
+'accept-encoding', 'gzip'
+'user-agent', 'quic-go HTTP/3'
+'x-forwarded-proto', 'https'
+'x-request-id', '38dec232-8ee6-4e9d-b70c-5bda430e1f3c'
+'x-envoy-expected-rq-timeout-ms', '15000'
+.
+[2023-11-24 05:03:01.140][152846][debug][quic_stream] [source/common/quic/envoy_quic_client_stream.cc:120] [Tags: "ConnectionId":"4417269691172050626","StreamId":"0"] encodeData (end_stream=true) of 0 bytes.
+[2023-11-24 05:03:01.140][152846][debug][client] [source/common/http/codec_client.cc:141] [Tags: "ConnectionId":"4417269691172050626"] encode complete
+[2023-11-24 05:03:01.140][152846][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 24 bytes from 127.0.0.1:7000
+[2023-11-24 05:03:01.141][152846][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 241 bytes from 127.0.0.1:7000
+[2023-11-24 05:03:01.142][152846][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 339 bytes from 127.0.0.1:7000
+[2023-11-24 05:03:01.142][152846][debug][quic_stream] [source/common/quic/envoy_quic_client_stream.cc:240] [Tags: "ConnectionId":"4417269691172050626","StreamId":"0"] Received headers: { :status=200, content-type=application/json, date=Fri, 24 Nov 2023 04:03:01 GMT, content-length=281, }.
+[2023-11-24 05:03:01.142][152846][debug][router] [source/common/router/router.cc:1479] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] upstream headers complete: end_stream=false
+[2023-11-24 05:03:01.143][152846][debug][http] [source/common/http/conn_manager_impl.cc:1863] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] encoding headers via codec (end_stream=false):
+':status', '200'
+'content-type', 'application/json'
+'date', 'Fri, 24 Nov 2023 04:03:01 GMT'
+'content-length', '281'
+'x-envoy-upstream-service-time', '16'
+'server', 'envoy'
+
+[2023-11-24 05:03:01.143][152846][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:52] [Tags: "ConnectionId":"663285105048046978","StreamId":"0"] encodeHeaders (end_stream=false) ':status', '200'
+'content-type', 'application/json'
+'date', 'Fri, 24 Nov 2023 04:03:01 GMT'
+'content-length', '281'
+'x-envoy-upstream-service-time', '16'
+'server', 'envoy'
+.
+[2023-11-24 05:03:01.143][152846][debug][client] [source/common/http/codec_client.cc:128] [Tags: "ConnectionId":"4417269691172050626"] response complete
+[2023-11-24 05:03:01.143][152846][debug][pool] [source/common/conn_pool/conn_pool_base.cc:215] [Tags: "ConnectionId":"4417269691172050626"] destroying stream: 0 remaining
+[2023-11-24 05:03:01.143][152846][debug][quic_stream] [source/common/quic/envoy_quic_server_stream.cc:94] [Tags: "ConnectionId":"663285105048046978","StreamId":"0"] encodeData (end_stream=true) of 281 bytes.
+[2023-11-24 05:03:01.143][152846][debug][http] [source/common/http/conn_manager_impl.cc:1968] [Tags: "ConnectionId":"663285105048046978","StreamId":"1132341691272143877"] Codec completed encoding stream.
+[2023-11-24 05:03:01.167][152846][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 1352 bytes from 127.0.0.1:7000
+[2023-11-24 05:03:01.167][152846][debug][misc] [source/common/network/utility.cc:690] Receive a packet with 22 bytes from 127.0.0.1:7000
+[2023-11-24 05:03:03.871][152835][debug][main] [source/server/server.cc:263] flushing stats
+
